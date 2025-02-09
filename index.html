@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+<html lang="en" translate="no"> 
+<head>
+}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Immediate Apex Edge</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #0A0F1E;
+        }
+
+        .bg-pattern {
+            background-color: #0A0F1E;
+            background-image: 
+                radial-gradient(circle at 100% 0%, rgba(59,130,246,0.08) 0, transparent 45%),
+                radial-gradient(circle at 0% 100%, rgba(59,130,246,0.08) 0, transparent 45%),
+                linear-gradient(135deg, rgba(59,130,246,0.03) 0%, transparent 25%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bg-pattern::before {
+            content: '';
+            position: fixed;
+            width: 200%;
+            height: 200%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233B82F6' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            animation: patternMove 60s linear infinite;
+            opacity: 0.5;
+            top: -50%;
+            left: -50%;
+            z-index: 0;
+            will-change: transform;
+        }
+
+        @keyframes patternMove {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+       
+
+        @media (max-width: 640px) {
+            h1 {
+                font-size: 2rem !important;
+                line-height: 1.2 !important;
+            }
+            
+            h2 {
+                font-size: 1.75rem !important;
+            }
+            
+            .timer-digit {
+                font-size: 2rem !important;
+            }
+            
+            .package-price {
+                font-size: 2rem !important;
+            }
+            
+            .stat-number {
+                font-size: 1.75rem !important;
+            }
+        }
+
+        
+        .timer-container {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .timer-digit {
+            font-feature-settings: 'tnum' on, 'lnum' on;
+            font-variant-numeric: tabular-nums;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .timer-digit.flip {
+            transform: rotateX(360deg);
+        }
+
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .logo-text {
+            background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+
+        .logo-text::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #3B82F6, transparent);
+        }.package-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 16px;
+            padding: 2.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .package-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .package-card.premium {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(37, 99, 235, 0.1) 100%);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .package-title {
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .package-price {
+            color: #60A5FA;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .package-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            color: #94A3B8;
+        }
+
+        .package-features li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .package-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #60A5FA;
+        }
+
+        .package-button {
+            width: 100%;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .package-button:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+        }
+
+        .media-logo {
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .media-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .results-image img {
+            transition: transform 0.3s ease;
+        }
+
+        .results-image:hover img {
+            transform: scale(1.02);
+        }
+
+        .feature-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-number {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.25rem;
+        }
+
+        .feature-button {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .feature-button:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+        }
+
+        .feature-image {
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .info-icon {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(37, 99, 235, 0.2) 100%);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            color: #60A5FA;
+            width: fit-content;
+        }
+
+        .info-title {
+            color: #fff;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .info-text {
+            color: #94A3B8;
+            line-height: 1.6;
+        }
+
+        .tech-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 16px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tech-icon {
+            position: absolute;
+            right: -20px;
+            bottom: -20px;
+            opacity: 0.1;
+            transform: scale(3);
+            color: #3b82f6;
+        }
+
+        .tech-card:hover .tech-icon {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(3); }
+            50% { transform: scale(3.2); }
+            100% { transform: scale(3); }
+        }
+        .advantage-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .advantage-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .advantage-icon {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(37, 99, 235, 0.2) 100%);
+            border-radius: 50%;
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: #60A5FA;
+        }
+
+        .advantage-title {
+            color: #fff;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .advantage-text {
+            color: #94A3B8;
+            margin-bottom: 1.5rem;
+        }
+
+        .advantage-button {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .advantage-button:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+        }
+
+        .stat-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .stat-number {
+            color: #60A5FA;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #94A3B8;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .success-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            height: 100%;
+        }
+
+        .testimonial-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .testimonial-image {
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-image img {
+            width: 80px;
+            height: 80px;
+            border: 3px solid #3b82f6;
+            padding: 2px;
+        }
+
+        .testimonial-stars {
+            color: #FFD700;
+            font-size: 1.25rem;
+            letter-spacing: 2px;
+        }
+
+        .testimonial-text {
+            color: #94A3B8;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            min-height: 80px;
+        }
+
+        .testimonial-author {
+            color: #fff;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .testimonial-position {
+            color: #60A5FA;
+            font-size: 0.875rem;
+        }
+
+        .faq-item {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .faq-button {
+            width: 100%;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            font-weight: 500;
+            text-align: left;
+            transition: all 0.3s ease;
+        }
+
+        .faq-button:hover {
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .faq-icon {
+            width: 1.25rem;
+            height: 1.25rem;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-button[aria-expanded="true"] .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-answer.active {
+            padding: 1.5rem;
+            max-height: 500px;
+            border-top: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .faq-answer p {
+            color: #94A3B8;
+            line-height: 1.6;
+        }
+
+        .faq-answer strong {
+            color: #60A5FA;
+        }
+
+        .faq-answer ul {
+            color: #94A3B8;
+            margin-top: 0.5rem;
+        }
+
+        .faq-answer li {
+            margin-bottom: 0.5rem;
+        }
+        .risk-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .risk-warning-banner {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: 8px;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: #FCA5A5;
+        }
+
+        .risk-stat-box {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .legal-notice {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .uk-notice {
+            border-left: 3px solid #FBBF24;
+            padding-left: 1rem;
+        }
+
+        .social-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: #94A3B8;
+            transition: all 0.3s ease;
+            padding: 1rem;
+            border-radius: 12px;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .social-link:hover {
+            color: #60A5FA;
+            transform: translateY(-5px);
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        .social-link span {
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .footer-section {
+            background: rgba(15, 23, 42, 0.9);
+            border-top: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .footer-col {
+            padding: 1rem;
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .footer-col:hover {
+            transform: translateY(-5px);
+        }
+
+        .footer-col ul li {
+            transition: all 0.3s ease;
+        }
+
+
+       /* Mobile Menu */
+       .mobile-menu {
+            transition: all 0.3s ease;
+            background: rgb(17, 24, 39);
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            border-top: 1px solid rgb(31, 41, 55);
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 1rem 1.5rem;
+            color: rgb(148, 163, 184);
+            font-weight: 400;
+            border-bottom: 1px solid rgb(31, 41, 55);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            background: rgb(31, 41, 55);
+            color: white;
+        }
+
+        /* language switcher */
+
+        .lang-switch {
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(59, 130, 246, 0.1);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    color: #94A3B8;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.lang-switch:hover {
+    background: rgba(59, 130, 246, 0.1);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.lang-switch svg {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    .lang-switch {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
+    
+    .lang-switch svg {
+        width: 1rem;
+        height: 1rem;
+    }
+}
+
+/* Animation for language switch */
+.lang-switch.active {
+    background: rgba(59, 130, 246, 0.2);
+    color: white;
+}  
+
+
+
+      
+
+
+
+
+    </style>
+</head>
+<body>
+   
+    
+<!-- Header -->
+<header class="fixed w-full top-0 z-50 bg-opacity-90 bg-gray-900 backdrop-filter backdrop-blur-lg border-b border-gray-800">
+    <nav class="container mx-auto px-4 sm:px-6 py-4">
+        <div class="flex justify-between items-center">
+            <div class="flex items-center space-x-8 sm:space-x-12">
+                <a href="index.html" class="text-xl sm:text-2xl font-bold logo-text tracking-tight">
+                    Immediate Apex Edge
+                </a>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="nav-link text-gray-300 hover:text-white font-medium">Home</a>
+                    <a href="about.html" class="nav-link text-gray-300 hover:text-white font-medium">About</a>
+                    <a href="market.html" class="nav-link text-gray-300 hover:text-white font-medium">Market Price</a>
+                    <a href="contact.html" class="nav-link text-gray-300 hover:text-white font-medium">Contact</a>
+                </div>
+                
+            </div>
+
+            <!--Lang-->
+            <div class="hidden md:flex items-center ml-4">
+                <button class="lang-switch" onclick="toggleLanguage()">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+                    </svg>
+                    <span id="langBtnText">EN</span>
+                </button>
+            </div>
+            
+            <button class="md:hidden menu-button p-2 hover:bg-gray-800 rounded-lg transition-all duration-300" id="menuBtn">
+                <svg class="h-6 w-6 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
+           
+
+<!-- Mobile Menu -->
+<div class="mobile-menu hidden md:hidden animate__animated animate__fadeIn" id="mobileMenu">
+    <div class="flex flex-col space-y-2 p-4">
+        <a href="index.html" class="text-white px-4 py-2 rounded-lg bg-gray-800 transition-all duration-200">Home</a>
+        <a href="about.html" class="text-gray-300 hover:text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-all duration-200">About</a>
+        <a href="market.html" class="text-gray-300 hover:text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-all duration-200">Market Price</a>
+        <a href="contact.html" class="text-gray-300 hover:text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-all duration-200">Contact</a>
+    </div>
+    <!--Lang-->
+    <div class="px-4 py-2">
+        <button class="lang-switch w-full justify-center" onclick="toggleLanguage()">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+            </svg>
+            <span id="mobileLangBtnText">EN</span>
+        </button>
+    </div>
+</div>
+</div>
+</header>
+
+
+        <main class="pt-24 relative z-10">
+            <div class="container mx-auto px-6 py-16">
+                <div class="max-w-4xl mx-auto text-center">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-8 leading-tight animate__animated animate__fadeIn">
+                        <span class="text-white">Meet Immediate Apex Edge:</span>
+                        <span class="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent block mt-2">
+                            The Future of AI Trading in 2025
+                        </span>
+                    </h1>
+                    
+                    <p class="text-xl md:text-2xl text-gray-300 mb-16 animate__animated animate__fadeIn animate__delay-1s leading-relaxed">
+                        Ready to reach new heights? With Immediate Apex Edge, take advantage of revolutionary trading technology that combines the power of AI analysis with strategic precision to maximize your opportunities in the financial markets.
+                    </p>
+                    
+                    <div class="timer-container inline-block mb-16">
+                        <div class="grid grid-cols-4 gap-4 md:gap-8">
+                            <div class="text-center">
+                                <div class="timer-digit text-3xl md:text-5xl font-bold text-blue-400 countdown-days mb-2">00</div>
+                                <div class="text-sm uppercase tracking-wider text-gray-400">Days</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="timer-digit text-3xl md:text-5xl font-bold text-blue-400 countdown-hours mb-2">00</div>
+                                <div class="text-sm uppercase tracking-wider text-gray-400">Hours</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="timer-digit text-3xl md:text-5xl font-bold text-blue-400 countdown-minutes mb-2">00</div>
+                                <div class="text-sm uppercase tracking-wider text-gray-400">Minutes</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="timer-digit text-3xl md:text-5xl font-bold text-blue-400 countdown-seconds mb-2">00</div>
+                                <div class="text-sm uppercase tracking-wider text-gray-400">Seconds</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-12 animate__animated animate__fadeIn animate__delay-2s">
+                        <p class="text-2xl text-yellow-400 font-medium mb-3">
+                            Hurry up! Register before countdown ends
+                        </p>
+                        <p class="text-xl text-blue-400 font-medium mb-2">
+                            Get an incredible 50% bonus on your deposit
+                        </p>
+                        <p class="text-gray-400">
+                            A unique offer not to be missed!
+                        </p>
+                    </div>
+                    
+                    <button class="cta-button text-xl font-semibold px-12 py-4 rounded-xl text-white shadow-lg animate__animated animate__fadeIn animate__delay-3s transform hover:scale-105 transition-transform duration-300">
+                        Start Trading Now
+                    </button>
+                </div>
+            </div>
+
+            <!-- Trading Packages Section -->
+            <section class="trading-packages py-20 relative z-10">
+                <div class="container mx-auto px-6">
+                    <div class="text-center mb-16">
+                        <h2 class="text-4xl font-bold text-white mb-6">
+                            Discover Our Exclusive Trading Offers
+                        </h2>
+                        <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                            Dive into the world of online trading with the power of artificial intelligence (AI). Our packages include advanced AI trading tools designed to analyze markets in real time.
+                        </p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                        <!-- Starter Pack -->
+                        <div class="package-card">
+                            <h3 class="package-title">Starter Pack</h3>
+                            <div class="package-price">€250</div>
+                            <ul class="package-features">
+                                <li>50% Deposit Offered</li>
+                                <li>Access to the trading AI tool</li>
+                                <li>Access to educational resources</li>
+                                <li>Dedicated customer support</li>
+                                <li>Free demo with virtual capital</li>
+                                <li>User-friendly interface</li>
+                            </ul>
+                            <button class="package-button">Select Starter Pack</button>
+                        </div>
+
+                        <!-- Premium Pack -->
+                        <div class="package-card premium">
+                            <h3 class="package-title">Premium Pack</h3>
+                            <div class="package-price">€500</div>
+                            <ul class="package-features">
+                                <li>60% Deposit Offered</li>
+                                <li>Access to the trading AI tool</li>
+                                <li>Premium access to trading tools</li>
+                                <li>Consultations with experts</li>
+                                <li>Priority access to new opportunities</li>
+                                <li>Unlimited access to trading signals</li>
+                            </ul>
+                            <button class="package-button">Select Premium Pack</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Media Section -->
+            <section class="media-section py-20 relative z-10">
+                <div class="container mx-auto px-6 text-center">
+                    <h2 class="text-4xl font-bold text-white mb-12">
+                        Immediate Apex Edge In the Media!
+                    </h2>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+                        <div class="media-logo">
+                            <img src="/api/placeholder/120/60" alt="Media Logo 1" class="mx-auto">
+                        </div>
+                        <div class="media-logo">
+                            <img src="/api/placeholder/120/60" alt="Media Logo 2" class="mx-auto">
+                        </div>
+                        <div class="media-logo">
+                            <img src="/api/placeholder/120/60" alt="Media Logo 3" class="mx-auto">
+                        </div>
+                        <div class="media-logo">
+                            <img src="/api/placeholder/120/60" alt="Media Logo 4" class="mx-auto">
+                        </div>
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-yellow-400 mb-6">
+                        Benefit from our exclusive bonus
+                    </h3>
+                    <p class="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+                        For a limited time, Immediate Apex Edge is offering you a 60% bonus on any deposit of at least €250. Take advantage of this opportunity to increase your starting capital and benefit from the advantages of automated trading thanks to artificial intelligence.
+                    </p>
+                    <button class="cta-button text-xl font-semibold px-12 py-4 rounded-xl text-white shadow-lg">
+                        Get Offer Now
+                    </button>
+                </div>
+            </section>
+
+            <!-- Real-Time Results Section -->
+            <section class="results-section py-20 relative z-10">
+                <div class="container mx-auto px-6">
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div class="results-image">
+                            <img src="/api/placeholder/500/400" alt="Trading Results" class="rounded-xl shadow-2xl">
+                        </div>
+                        <div class="results-content">
+                            <h2 class="text-4xl font-bold text-white mb-6">Real-Time Results</h2>
+                            <p class="text-xl text-gray-300 leading-relaxed">
+                                Our users report impressive returns on investment, thanks to the accuracy and speed of our AI algorithm. Join a community of successful investors who trust Immediate Edge with their financial future.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Us Section -->
+            <section id="about" class="about-section py-20 relative z-10">
+                <div class="container mx-auto px-6">
+                    <div class="text-center mb-16">
+                        <h2 class="text-4xl font-bold text-white mb-8">About Us</h2>
+                        <p class="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+                            At Immediate Apex Edge, we are revolutionizing your experience in the world of cryptocurrency trading. By leveraging the latest advancements in blockchain technology and artificial intelligence (AI), we offer a secure and frictionless marketplace where buyers and sellers can transact on digital assets and goods.
+                        </p>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                        <!-- Card 1 -->
+                        <div class="feature-card">
+                            <div class="feature-number">1</div>
+                            <div class="feature-image">
+                                <img src="/api/placeholder/120/120" alt="Sign Up" class="mx-auto mb-6">
+                            </div>
+                            <h3 class="text-xl font-semibold text-white mb-4">Sign Up and Let AI Work for You</h3>
+                            <button class="feature-button">Enjoy Now</button>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="feature-card">
+                            <div class="feature-number">2</div>
+                            <div class="feature-image">
+                                <img src="/api/placeholder/120/120" alt="Safe Investment" class="mx-auto mb-6">
+                            </div>
+                            <h3 class="text-xl font-semibold text-white mb-4">Buy and Invest Safely in the Blockchain</h3>
+                            <button class="feature-button">Enjoy Now</button>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="feature-card">
+                            <div class="feature-number">3</div>
+                            <div class="feature-image">
+                                <img src="/api/placeholder/120/120" alt="AI Opportunities" class="mx-auto mb-6">
+                            </div>
+                            <h3 class="text-xl font-semibold text-white mb-4">Find Profitable Opportunities with AI</h3>
+                            <button class="feature-button">Enjoy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </section><!-- Technology Section -->
+            <section class="technology-section py-20 relative z-10">
+                <div class="container mx-auto px-6">
+                    <div class="text-center mb-12">
+                        <h2 class="text-4xl font-bold text-white mb-6">Our Technology</h2>
+                    </div>
+                    
+                    <div class="max-w-4xl mx-auto">
+                        <div class="tech-card">
+                            <h3 class="text-2xl font-bold text-white mb-4">What is Immediate Apex Edge AI?</h3>
+                            <p class="text-lg text-gray-300 leading-relaxed">
+                                Immediate Apex Edge AI is a cutting-edge solution that is revolutionizing online trading. With advanced algorithms and real-time analysis, this artificial intelligence automates your investments and helps you maximize your profits in the cryptocurrency, forex and other financial asset markets.
+                            </p>
+                            <div class="tech-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="features-section py-20 relative z-10">
+                <div class="container mx-auto px-6">
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+                        <!-- Instant Executions -->
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                </svg>
+                            </div>
+                            <h3 class="info-title">Instant Executions</h3>
+                            <p class="info-text">Our artificial intelligence continuously monitors the markets and executes your trades in seconds. It detects the best opportunities with exceptional precision.</p>
+                        </div>
+
+                        <!-- Data Protection -->
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                </svg>
+                            </div>
+                            <h3 class="info-title">Data Protection</h3>
+                            <p class="info-text">Your data and transactions are completely secure. We use advanced encryption systems to ensure the confidentiality and protection of your financial information.</p>
+                        </div>
+
+                        <!-- Automated Market Analysis -->
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                </svg>
+                            </div>
+                            <h3 class="info-title">Automated Market Analysis</h3>
+                            <p class="info-text">AI analyzes massive volumes of market data in real-time to predict future movements. This technology allows you to always stay ahead of the most lucrative opportunities.</p>
+                        </div>
+
+                        <!-- Risk Reduction -->
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                </svg>
+                            </div>
+                            <h3 class="info-title">Risk Reduction with AI</h3>
+                            <p class="info-text">Built-in AI risk management automatically adjusts your strategies based on market fluctuations, helping you protect your gains and investments from potential losses.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Advantages Section -->
+            <section class="advantages-section py-20 relative z-10">
+                <div class="container mx-auto px-6">
+                    <h2 class="text-4xl font-bold text-white text-center mb-12">
+                        Discover the Advantages that Make the Difference
+                    </h2>
+                    
+                    <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                        <!-- Security Card -->
+                        <div class="advantage-card">
+                            <div class="advantage-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                </svg>
+                            </div>
+                            <h3 class="advantage-title">Foolproof Security</h3>
+                            <p class="advantage-text">Transactions protected by the power of blockchain and advanced encryption.</p>
+                            <button class="advantage-button">Enjoy Now</button>
+                        </div>
+
+                        <!-- Freedom Card -->
+                        <div class="advantage-card">
+                            <div class="advantage-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064" />
+                                </svg>
+                            </div>
+                            <h3 class="advantage-title">Freedom and Transparency</h3>
+                            <p class="advantage-text">Without a central authority, invest freely thanks to a network without central control.</p>
+                            <button class="advantage-button">Enjoy Now</button>
+                        </div>
+
+                        <!-- Profitability Card -->
+                        <div class="advantage-card">
+                            <div class="advantage-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <h3 class="advantage-title">Maximum Profitability</h3>
+                            <p class="advantage-text">Reduced costs and maximized profits with our decentralized technology.</p>
+                            <button class="advantage-button">Enjoy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </section><!-- Stats Section -->
+            <section class="stats-section py-20 relative z-10">
+                <div class="container mx-auto px-6">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
+                        <div class="stat-card">
+                            <div class="stat-number" data-value="50000">0</div>
+                            <div class="stat-label">Secure transactions</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" data-value="100">0</div>
+                            <div class="stat-label">Countries covered</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" data-value="10000">0</div>
+                            <div class="stat-label">Satisfied investors</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" data-value="1000000">0</div>
+                            <div class="stat-label">Data processed</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Success Sections -->
+            <section class="success-section py-20 relative z-10">
+                <div class="container mx-auto px-6">
+                    <div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+                        <!-- Financial Success -->
+                        <div class="success-card">
+                            <h2 class="text-3xl font-bold text-white mb-6">Boost Your Financial Success with Immediate Apex Edge</h2>
+                            <p class="text-gray-300 leading-relaxed">
+                                Meet Immediate Apex Edge, an innovative trading platform powered by artificial intelligence. With cutting-edge tools, ultra-precise predictive analytics, and advanced automation, this solution is designed to minimize risk and maximize profits. Whether you're a beginner or an expert, our platform simplifies your decisions and optimizes your performance at every step. Get a head start and revolutionize your trading strategy today!
+                            </p>
+                        </div>
+
+                        <!-- Trading Community -->
+                        <div class="success-card">
+                            <h2 class="text-3xl font-bold text-white mb-6">Join the Best Trading Community</h2>
+                            <p class="text-gray-300 leading-relaxed">
+                                Join a community of over 18,000 active traders who have already transformed their experience with Immediate Apex Edge. This innovative platform gives you exclusive access to profitable market opportunities, advanced tools, and dedicated support to help you achieve your financial goals. With Immediate Apex Edge, benefit from a simplified and efficient approach to maximizing your profits and staying ahead in the trading world. Join us now and gain an edge in the markets!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Testimonials Section -->
+            <section class="testimonials-section py-20 relative z-10">
+                <div class="container mx-auto px-6">
+                    <h2 class="text-4xl font-bold text-white text-center mb-12">What Our Users Say</h2>
+                    
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+                        <!-- Testimonial 1 -->
+                        <div class="testimonial-card">
+                            <div class="testimonial-image">
+                                <img src="/api/placeholder/80/80" alt="User 1" class="rounded-full mx-auto">
+                            </div>
+                            <div class="testimonial-content">
+                                <div class="testimonial-stars mb-4">
+                                    ★★★★★
+                                </div>
+                                <p class="testimonial-text">The AI technology has revolutionized my trading strategy. I've seen consistent profits since I started using this platform.</p>
+                                <div class="testimonial-author">Michael R.</div>
+                                <div class="testimonial-position">Professional Trader</div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 2 -->
+                        <div class="testimonial-card">
+                            <div class="testimonial-image">
+                                <img src="/api/placeholder/80/80" alt="User 2" class="rounded-full mx-auto">
+                            </div>
+                            <div class="testimonial-content">
+                                <div class="testimonial-stars mb-4">
+                                    ★★★★★
+                                </div>
+                                <p class="testimonial-text">As a beginner, I was skeptical at first. But the platform's user-friendly interface and AI guidance made everything simple.</p>
+                                <div class="testimonial-author">Sarah L.</div>
+                                <div class="testimonial-position">New Investor</div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 3 -->
+                        <div class="testimonial-card">
+                            <div class="testimonial-image">
+                                <img src="/api/placeholder/80/80" alt="User 3" class="rounded-full mx-auto">
+                            </div>
+                            <div class="testimonial-content">
+                                <div class="testimonial-stars mb-4">
+                                    ★★★★★
+                                </div>
+                                <p class="testimonial-text">The automated analysis and risk management features have helped me make better trading decisions consistently.</p>
+                                <div class="testimonial-author">David W.</div>
+                                <div class="testimonial-position">Financial Analyst</div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 4 -->
+                        <div class="testimonial-card">
+                            <div class="testimonial-image">
+                                <img src="/api/placeholder/80/80" alt="User 4" class="rounded-full mx-auto">
+                            </div>
+                            <div class="testimonial-content">
+                                <div class="testimonial-stars mb-4">
+                                    ★★★★★
+                                </div>
+                                <p class="testimonial-text">The security features and transparent approach give me peace of mind. Best trading platform I've used so far.</p>
+                                <div class="testimonial-author">Emma K.</div>
+                                <div class="testimonial-position">Cryptocurrency Trader</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FAQ Section -->
+            <section class="faq-section py-20 relative z-10">
+                <div class="container mx-auto px-6">
+                    <h2 class="text-4xl font-bold text-white text-center mb-12">Frequently Asked Questions</h2>
+                    
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <!-- FAQ Items --><!-- FAQ Item 1 -->
+                        <div class="faq-item">
+                            <button class="faq-button">
+                                <span>What is Immediate Apex Edge?</span>
+                                <svg class="faq-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Immediate Apex Edge is an <strong>automated trading platform</strong> powered by <strong>advanced artificial intelligence (AI) algorithms</strong>. It analyzes financial markets in real-time to detect <strong>profitable trading opportunities</strong> and automatically executes trades. This innovative technology is designed to <strong>maximize users' profits</strong>, relying on <strong>precise data</strong> and powerful calculations, while simplifying the trading experience, whether you are a beginner or an experienced trader.</p>
+                            </div>
+                        </div>
+
+                        
+                        <div class="faq-item">
+                            <button class="faq-button">
+                                <span>Can everyone use Immediate Apex Edge?</span>
+                                <svg class="faq-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Yes, <strong>Immediate Apex Edge</strong> is designed to be accessible to <strong>all users</strong>, whether they are <strong>experienced traders</strong> or <strong>beginners</strong>. Thanks to its <strong>intuitive and user-friendly interface</strong>, it is easy to navigate, even without any prior trading experience.</p>
+                            </div>
+                        </div>
+
+                        
+                        <div class="faq-item">
+                            <button class="faq-button">
+                                <span>Are there any risks in using Immediate Apex Edge?</span>
+                                <svg class="faq-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Yes, as with any <strong>trading or investing activity, there are inherent risks</strong>. While we use advanced algorithms to maximize profits, market unpredictability means that <strong>financial losses can occur</strong>. We recommend:</p>
+                                <ul class="list-disc pl-6 mt-2">
+                                    <li>Starting with modest amounts</li>
+                                    <li>Establishing a clear strategy</li>
+                                    <li>Never investing more than you can afford to lose</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                       
+                        <div class="faq-item">
+                            <button class="faq-button">
+                                <span>What is the minimum deposit?</span>
+                                <svg class="faq-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            <div class="faq-answer">
+                                <p>The minimum deposit to start trading with <strong>Immediate Apex Edge</strong> is <strong>€250</strong>. This gives you access to all platform features and our AI trading tools.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Risk Disclosure Section -->
+            <section class="risk-section py-16 relative z-10">
+                <div class="container mx-auto px-6">
+                    <div class="max-w-4xl mx-auto">
+                        <div class="risk-card">
+                            <h2 class="text-2xl font-bold text-white mb-6">Associated Risks:</h2>
+                            
+                            <div class="risk-content space-y-4 text-gray-300">
+                                <div class="risk-warning-banner">
+                                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                    </svg>
+                                    <p>Trading involves substantial risk</p>
+                                </div>
+
+                                <p>Cryptocurrency trading comes with inherent risks, similar to any investment. When committing your funds, please be aware that no profits are guaranteed.</p>
+                                
+                                <div class="risk-stat-box">
+                                    <span class="text-red-400 font-semibold">70%</span> of investors can incur losses during their trading journey
+                                </div>
+                                
+                                <div class="legal-notice">
+                                    <p>Before you start trading, we strongly recommend that you familiarise yourself with our <a href="#" class="text-blue-400 hover:text-blue-300">Terms and Conditions</a> and <a href="#" class="text-blue-400 hover:text-blue-300">Privacy Policy</a>.</p>
+                                    
+                                    <div class="uk-notice mt-4">
+                                        <p class="font-medium text-yellow-400">Notice for UK residents:</p>
+                                        <p>The distribution of marketing materials regarding CFDs is restricted by the FCA.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+           <!-- Connect With Us Section -->
+<section class="social-section py-16 relative z-10">
+    <div class="container mx-auto px-6">
+        <h2 class="text-3xl font-bold text-white text-center mb-8">Connect With Us</h2>
+        
+        <div class="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8">
+            
+            <a href="#" class="social-link w-[calc(50%-1rem)] sm:w-auto">
+                <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                </svg>
+                <span>Twitter</span>
+            </a>
+
+            
+            <a href="#" class="social-link w-[calc(50%-1rem)] sm:w-auto">
+                <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
+                </svg>
+                <span>Instagram</span>
+            </a>
+
+            
+            <a href="#" class="social-link w-[calc(50%-1rem)] sm:w-auto">
+                <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+                <span>Facebook</span>
+            </a>
+
+           
+            <a href="#" class="social-link w-[calc(50%-1rem)] sm:w-auto">
+                <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+                <span>YouTube</span>
+            </a>
+        </div>
+    </div>
+</section>
+    
+                <!-- Footer Section -->
+                <footer class="footer-section py-16 relative z-10">
+                    <div class="container mx-auto px-6">
+                        <div class="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
+                            <!-- Company Description -->
+                            <div class="footer-col">
+                                <h3 class="text-2xl font-bold text-white mb-6">Immediate Apex Edge</h3>
+                                <p class="text-gray-300 mb-6">With Immediate Apex Edge, take advantage of revolutionary trading technology combining the power of AI analysis and strategic precision to maximize your opportunities in the financial markets.</p>
+                                <button class="cta-button text-lg font-semibold px-8 py-3 rounded-xl text-white">
+                                    Enjoy Now!
+                                </button>
+                            </div>
+    
+                            <!-- Quick Links -->
+                            <div class="footer-col">
+                                <h3 class="text-xl font-bold text-white mb-6">Quick Links</h3>
+                                <ul class="space-y-4">
+                                    <li><a href="#" class="text-gray-300 hover:text-blue-400">Privacy Policy</a></li>
+                                    <li><a href="#" class="text-gray-300 hover:text-blue-400">Terms and Conditions</a></li>
+                                </ul>
+                            </div>
+    
+                            <!-- Contact Info -->
+                            <div class="footer-col">
+                                <h3 class="text-xl font-bold text-white mb-6">Contacts</h3>
+                                <ul class="space-y-4 text-gray-300">
+                                    <li class="flex items-start gap-3">
+                                        <svg class="h-6 w-6 text-blue-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                        </svg>
+                                        <span>10 Avenue Montaigne, 75008 Paris</span>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <svg class="h-6 w-6 text-blue-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                        </svg>
+                                        <a href="mailto:contact@immediateapexedge.com" class="hover:text-blue-400">contact@immediateapexedge.com</a>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <svg class="h-6 w-6 text-blue-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                                        </svg>
+                                        <a href="https://immediateapexedge.com" target="_blank" class="hover:text-blue-400">immediateapexedge.com</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+    
+                        <!-- Copyright -->
+                        <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+                            <p class="text-gray-400">&copy; 2025 Immediate Apex Edge. All Rights Reserved.</p>
+                        </div>
+                    </div>
+                </footer>
+            </main>
+        </div>
+    
+        <!-- JS -->
+
+
+        
+<script src="indexrench.js"></script>
+
+
+        <script> // Countdown Timer
+                document.addEventListener('DOMContentLoaded', () => {
+    // Mobile Menu 
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    let isMenuOpen = false;
+
+    function toggleMenu() {
+        isMenuOpen = !isMenuOpen;
+        mobileMenu.classList.toggle('hidden');
+        if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('animate__fadeIn');
+        } else {
+            mobileMenu.classList.remove('animate__fadeIn');
+        }
+    }
+
+    menuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleMenu();
+    });
+
+    document.addEventListener('click', (e) => {
+        if (isMenuOpen && !mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+            toggleMenu();
+        }
+    });
+
+    const menuLinks = mobileMenu.querySelectorAll('a');
+    menuLinks.forEach(link => {
+        link.addEventListener('click', toggleMenu);
+    });
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth >= 768 && isMenuOpen) {
+            toggleMenu();
+        }
+    });
+
+    // Countdown Timer 
+    class CountdownTimer {
+        constructor(endDate) {
+            this.endDate = endDate;
+            this.elements = {
+                days: document.querySelector('.countdown-days'),
+                hours: document.querySelector('.countdown-hours'),
+                minutes: document.querySelector('.countdown-minutes'),
+                seconds: document.querySelector('.countdown-seconds')
+            };
+            this.previousValues = {
+                days: null,
+                hours: null,
+                minutes: null,
+                seconds: null
+            };
+        }
+
+        calculateTimeLeft() {
+            const now = new Date();
+            const diff = this.endDate - now;
+
+            if (diff <= 0) {
+                return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+            }
+
+            return {
+                days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+                hours: Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+                minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
+                seconds: Math.floor((diff % (1000 * 60)) / 1000)
+            };
+        }
+
+        updateDisplay(timeLeft) {
+            Object.entries(timeLeft).forEach(([key, value]) => {
+                const element = this.elements[key];
+                if (element) {
+                    const newValue = String(value).padStart(2, '0');
+                    if (this.previousValues[key] !== newValue) {
+                        element.classList.remove('flip');
+                        void element.offsetWidth;
+                        element.textContent = newValue;
+                        element.classList.add('flip');
+                        this.previousValues[key] = newValue;
+                    }
+                }
+            });
+        }
+
+        start() {
+            this.update();
+            this.interval = setInterval(() => this.update(), 1000);
+        }
+
+        update() {
+            const timeLeft = this.calculateTimeLeft();
+            this.updateDisplay(timeLeft);
+            if (Object.values(timeLeft).every(v => v === 0)) {
+                clearInterval(this.interval);
+            }
+        }
+    }
+
+    // Initialize countdown
+    const endDate = new Date();
+    endDate.setDate(endDate.getDate() + 7);
+    const countdown = new CountdownTimer(endDate);
+    countdown.start();
+
+    // Stats Animation
+    const stats = document.querySelectorAll('.stat-number');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const element = entry.target;
+                const value = parseInt(element.dataset.value);
+                animateValue(element, 0, value, 2000);
+                observer.unobserve(element);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    function animateValue(element, start, end, duration) {
+        let startTimestamp = null;
+        const formatter = new Intl.NumberFormat();
+
+        function step(timestamp) {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            const currentValue = Math.floor(progress * (end - start) + start);
+            element.textContent = formatter.format(currentValue);
+
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            }
+        }
+
+        window.requestAnimationFrame(step);
+    }
+
+    stats.forEach(stat => observer.observe(stat));
+
+    // FAQ Functionality
+    const faqButtons = document.querySelectorAll('.faq-button');
+    faqButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const answer = button.nextElementSibling;
+            const isExpanded = button.getAttribute('aria-expanded') === 'true';
+            
+            // Close all other FAQs
+            faqButtons.forEach(otherButton => {
+                if (otherButton !== button) {
+                    otherButton.setAttribute('aria-expanded', 'false');
+                    otherButton.nextElementSibling.classList.remove('active');
+                }
+            });
+            
+            // Toggle current FAQ
+            button.setAttribute('aria-expanded', !isExpanded);
+            answer.classList.toggle('active');
+        });
+    });
+});
+      
+
+
+
+
+// Lang switcher js
+
+
+// Initialize language state
+let currentLang = 'en';
+
+// Function to toggle language
+function toggleLanguage() {
+    const currentLang = document.getElementById('langBtnText').textContent.toLowerCase();
+    const newLang = currentLang === 'en' ? 'fr' : 'en';
+    
+    // Update language button text
+    document.getElementById('langBtnText').textContent = newLang.toUpperCase();
+    document.getElementById('mobileLangBtnText').textContent = newLang.toUpperCase();
+    
+    // Update content
+    updateContent(newLang);
+    
+    // Add animation class
+    const buttons = document.querySelectorAll('.lang-switch');
+    buttons.forEach(button => {
+        button.classList.add('active');
+        setTimeout(() => button.classList.remove('active'), 300);
+    });
+
+    // Store language preference
+    localStorage.setItem('preferredLanguage', newLang);
+}
+
+// Check for stored language preference on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const storedLang = localStorage.getItem('preferredLanguage');
+    if (storedLang) {
+        document.getElementById('langBtnText').textContent = storedLang.toUpperCase();
+        document.getElementById('mobileLangBtnText').textContent = storedLang.toUpperCase();
+        updateContent(storedLang);
+    } else {
+        updateContent('en');
+    }
+});
+
+
+        </script>
+    </body>
+    </html>

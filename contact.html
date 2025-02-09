@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Immediate Apex Edge</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #0A0F1E;
+        }
+
+        .bg-pattern {
+            background-color: #0A0F1E;
+            background-image: 
+                radial-gradient(circle at 100% 0%, rgba(59,130,246,0.08) 0, transparent 45%),
+                radial-gradient(circle at 0% 100%, rgba(59,130,246,0.08) 0, transparent 45%),
+                linear-gradient(135deg, rgba(59,130,246,0.03) 0%, transparent 25%);
+        }
+
+        
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .logo-text {
+            background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+        .logo-text {
+            background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+
+        .logo-text::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #3B82F6, transparent);
+        }
+
+        
+        .contact-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.1);
+        }
+
+        .contact-icon {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(37, 99, 235, 0.2) 100%);
+            border-radius: 12px;
+            padding: 1rem;
+            color: #60A5FA;
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover .contact-icon {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.3) 0%, rgba(37, 99, 235, 0.3) 100%);
+            transform: scale(1.05);
+        }
+
+        
+        .contact-form-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-form-card:hover {
+            border-color: rgba(59, 130, 246, 0.2);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-input {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            color: white;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #3B82F6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+
+        .form-input::placeholder {
+            color: #64748B;
+        }
+
+        .form-label {
+            color: #E2E8F0;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .submit-button {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+        }
+
+        .submit-button:active {
+            transform: translateY(0);
+        }
+
+        
+        .mobile-menu {
+            transition: all 0.3s ease;
+            background: rgba(17, 24, 39, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            margin-top: 1rem;
+        }
+
+        .menu-button {
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-button:hover {
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        
+        .footer-section {
+            background: rgba(15, 23, 42, 0.9);
+            border-top: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .footer-col {
+            padding: 1.5rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-col:hover {
+            transform: translateY(-5px);
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+        }
+
+        
+        @media (max-width: 768px) {
+            .contact-card {
+                padding: 1.5rem;
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+            }
+
+            .contact-icon {
+                padding: 0.75rem;
+            }
+
+            .contact-form-card {
+                padding: 1.5rem;
+            }
+
+            .submit-button {
+                padding: 0.875rem 1.5rem;
+            }
+
+            .footer-col {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .nav-link {
+                padding: 0.375rem 0.75rem;
+            }
+
+            .contact-card {
+                padding: 1.25rem;
+            }
+
+            .form-group {
+                margin-bottom: 1rem;
+            }
+
+            .footer-section {
+                padding-top: 3rem;
+                padding-bottom: 3rem;
+            }
+        }
+
+         /* language switcher */
+
+         .lang-switch {
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(59, 130, 246, 0.1);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    color: #94A3B8;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.lang-switch:hover {
+    background: rgba(59, 130, 246, 0.1);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.lang-switch svg {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    .lang-switch {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
+    
+    .lang-switch svg {
+        width: 1rem;
+        height: 1rem;
+    }
+}
+
+/* Animation for language switch */
+.lang-switch.active {
+    background: rgba(59, 130, 246, 0.2);
+    color: white;
+}  
+
+
+
+        /*end of language switcher */
+
+
+        
+
+        
+    </style>
+</head>
+<body class="bg-pattern min-h-screen">
+   <!-- Header -->
+<header class="fixed w-full top-0 z-50 bg-opacity-90 bg-gray-900 backdrop-filter backdrop-blur-lg border-b border-gray-800">
+    <nav class="container mx-auto px-4 sm:px-6 py-4">
+        <div class="flex justify-between items-center">
+            <!-- Logo and Navigation Links -->
+            <div class="flex items-center space-x-8">
+                <a href="index.html" class="text-xl sm:text-2xl font-bold logo-text tracking-tight">
+                    Immediate Apex Edge
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="nav-link text-gray-300 hover:text-white font-medium">Home</a>
+                    <a href="about.html" class="nav-link text-gray-300 hover:text-white font-medium">About</a>
+                    <a href="market.html" class="nav-link text-gray-300 hover:text-white font-medium">Market Price</a>
+                    <a href="contact.html" class="nav-link text-gray-300 hover:text-white font-medium">Contact</a>
+                </div>
+            </div>
+
+            <!-- Right Side Items -->
+            <div class="flex items-center space-x-4">
+                <!-- Language Switcher -->
+                <div class="hidden md:block">
+                    <button class="lang-switch" onclick="toggleLanguage()">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+                        </svg>
+                        <span id="langBtnText">EN</span>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden menu-button" id="menuBtn">
+                    <svg class="h-6 w-6 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu hidden md:hidden animate__animated animate__fadeIn" id="mobileMenu">
+            <div class="flex flex-col space-y-2 p-4">
+                <a href="index.html" class="text-gray-300 hover:text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-all duration-200">Home</a>
+                <a href="about.html" class="text-gray-300 hover:text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-all duration-200">About</a>
+                <a href="market.html" class="text-gray-300 hover:text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-all duration-200">Market Price</a>
+                <a href="contact.html" class="text-white px-4 py-2 rounded-lg bg-gray-800 transition-all duration-200">Contact</a>
+            </div>
+            <!-- Mobile Language Switcher -->
+            <div class="px-4 py-2">
+                <button class="lang-switch w-full justify-center" onclick="toggleLanguage()">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+                    </svg>
+                    <span id="mobileLangBtnText">EN</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+</header>
+
+    <!-- Main Content -->
+    <main class="pt-24 pb-16">
+        <div class="container mx-auto px-4 sm:px-6">
+            <h1 class="text-3xl sm:text-4xl font-bold text-white text-center mb-8 sm:mb-12">Contact Us</h1>
+
+            <div class="grid md:grid-cols-2 gap-8 sm:gap-12 max-w-6xl mx-auto">
+                <!-- Contact Info Cards -->
+                <div class="space-y-6">
+                    <!-- Email Card -->
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <div class="contact-info">
+                            <h3 class="text-xl font-semibold text-white mb-2">E-mail</h3>
+                            <a href="mailto:contact@immediateapexedge.com" class="text-blue-400 hover:text-blue-300 transition-colors duration-200">
+                                contact@immediateapexedge.com
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Address Card -->
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                        </div>
+                        <div class="contact-info">
+                            <h3 class="text-xl font-semibold text-white mb-2">Address</h3>
+                            <p class="text-gray-300">
+                                Immediate Apex Edge<br>
+                                10 Avenue Montaigne<br>
+                                Paris <span class="text-blue-400">75008</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="contact-form-card">
+                    <h3 class="text-2xl font-semibold text-white mb-6">Send us a message</h3>
+                    <form id="contactForm" class="space-y-6">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Full Name</label>
+                            <input 
+                                type="text" 
+                                id="name" 
+                                class="form-input" 
+                                placeholder="John Doe" 
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                class="form-input" 
+                                placeholder="john@example.com" 
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject" class="form-label">Subject</label>
+                            <input 
+                                type="text" 
+                                id="subject" 
+                                class="form-input" 
+                                placeholder="How can we help?" 
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea 
+                                id="message" 
+                                rows="5" 
+                                class="form-input" 
+                                placeholder="Your message here..." 
+                                required
+                            ></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-button">
+                            <span>Send Message</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer-section py-16 relative z-10">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="grid md:grid-cols-3 gap-8 sm:gap-12 max-w-6xl mx-auto">
+                <!-- Company Description -->
+                <div class="footer-col">
+                    <h3 class="text-2xl font-bold text-white mb-6">Immediate Apex Edge</h3>
+                    <p class="text-gray-300 mb-6">Take advantage of revolutionary trading technology combining the power of AI analysis and strategic precision to maximize your opportunities in the financial markets.</p>
+                    <button class="cta-button text-lg font-semibold">
+                        <span>Start Trading Now</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-col">
+                    <h3 class="text-xl font-bold text-white mb-6">Quick Links</h3>
+                    <ul class="space-y-4">
+                        <li><a href="#" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Terms and Conditions</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="footer-col">
+                    <h3 class="text-xl font-bold text-white mb-6">Contacts</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <svg class="h-6 w-6 text-blue-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            <span>10 Avenue Montaigne, 75008 Paris</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="h-6 w-6 text-blue-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                            <a href="mailto:contact@immediateapexedge.com" class="hover:text-blue-400 transition-colors duration-200">contact@immediateapexedge.com</a>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="h-6 w-6 text-blue-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                            </svg>
+                            <a href="https://immediateapexedge.com" target="_blank" class="hover:text-blue-400 transition-colors duration-200">immediateapexedge.com</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2025 Immediate Apex Edge. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!--Script-->
+    
+
+    <script src="contactfrench.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile menu functionality
+            const menuBtn = document.getElementById('menuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('animate__fadeIn');
+                } else {
+                    mobileMenu.classList.remove('animate__fadeIn');
+                }
+            });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!menuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+
+            // Form submission handling with validation and animation
+            const contactForm = document.getElementById('contactForm');
+            const submitButton = contactForm.querySelector('button[type="submit"]');
+
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                // Disable submit button and show loading state
+                submitButton.disabled = true;
+                submitButton.innerHTML = `
+                    <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span>Sending...</span>
+                `;
+
+                // Get form data
+                const formData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    subject: document.getElementById('subject').value,
+                    message: document.getElementById('message').value
+                };
+
+                // Simulate API call with timeout
+                await new Promise(resolve => setTimeout(resolve, 1500));
+
+                // Here you would typically send the form data to your backend
+                console.log('Form submitted:', formData);
+                
+                // Reset form
+                contactForm.reset();
+                
+                // Show success state
+                submitButton.innerHTML = `
+                    <svg class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Message Sent!</span>
+                `;
+
+                // Reset button after 2 seconds
+                setTimeout(() => {
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = `
+                        <span>Send Message</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    `;
+                }, 2000);
+            });
+        });
+
+
+
+
+        // Lang switcher js
+
+
+        // Form submission handling with validation and animation
+const contactForm = document.getElementById('contactForm');
+const submitButton = contactForm.querySelector('button[type="submit"]');
+
+contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    // Get current language
+    const currentLang = document.getElementById('langBtnText').textContent.toLowerCase();
+    
+    // Disable submit button and show loading state
+    submitButton.disabled = true;
+    submitButton.innerHTML = `
+        <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        <span>${translations[currentLang].main.form.sending}</span>
+    `;
+
+    // Get form data
+    const formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        subject: document.getElementById('subject').value,
+        message: document.getElementById('message').value
+    };
+
+    // Simulate API call with timeout
+    await new Promise(resolve => setTimeout(resolve, 1500));
+
+    // Here you would typically send the form data to your backend
+    console.log('Form submitted:', formData);
+    
+    // Reset form
+    contactForm.reset();
+    
+    // Show success state
+    submitButton.innerHTML = `
+        <svg class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+        <span>${translations[currentLang].main.form.sent}</span>
+    `;
+
+    // Reset button after 2 seconds
+    setTimeout(() => {
+        submitButton.disabled = false;
+        submitButton.innerHTML = `
+            <span>${translations[currentLang].main.form.sendButton}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+        `;
+    }, 2000);
+});
+
+
+
+
+
+    </script>
+</body>
+</html>

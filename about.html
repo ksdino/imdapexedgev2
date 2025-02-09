@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Immediate Apex Edge</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #0A0F1E;
+        }
+
+        .logo-text {
+            background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+        .logo-text {
+            background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+
+        .logo-text::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #3B82F6, transparent);
+        }
+
+        .bg-pattern {
+            background-color: #0A0F1E;
+            background-image: 
+                radial-gradient(circle at 100% 0%, rgba(59,130,246,0.08) 0, transparent 45%),
+                radial-gradient(circle at 0% 100%, rgba(59,130,246,0.08) 0, transparent 45%),
+                linear-gradient(135deg, rgba(59,130,246,0.03) 0%, transparent 25%);
+        }
+
+        /* Navigation Styles */
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .logo-text {
+            background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* About Section Cards */
+        .about-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .about-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.1);
+        }
+
+        /* Feature Cards */
+        .feature-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .feature-icon {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(37, 99, 235, 0.2) 100%);
+            border-radius: 12px;
+            padding: 1rem;
+            display: inline-flex;
+            color: #60A5FA;
+            margin-bottom: 1rem;
+        }
+
+        /* Team Member Cards */
+        .team-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .team-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            object-fit: cover;
+            border: 3px solid rgba(59, 130, 246, 0.3);
+            padding: 3px;
+        }
+
+        /* Stats Section */
+        .stats-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stats-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .stat-number {
+            background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Timeline Section */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #3b82f6 0%, #60a5fa 100%);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background: #3b82f6;
+            border: 2px solid #0A0F1E;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            transition: all 0.3s ease;
+            background: rgba(17, 24, 39, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Footer */
+        .footer-section {
+            background: rgba(15, 23, 42, 0.9);
+            border-top: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .team-card {
+                margin-bottom: 1.5rem;
+            }
+
+            .feature-card {
+                margin-bottom: 1.5rem;
+            }
+
+            .timeline {
+                padding-left: 1.5rem;
+            }
+
+            .timeline-item::before {
+                left: -1.5rem;
+            }
+        }
+
+
+
+         /* language switcher */
+
+         .lang-switch {
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(59, 130, 246, 0.1);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    color: #94A3B8;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.lang-switch:hover {
+    background: rgba(59, 130, 246, 0.1);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.lang-switch svg {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    .lang-switch {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
+    
+    .lang-switch svg {
+        width: 1rem;
+        height: 1rem;
+    }
+}
+
+/* Animation for language switch */
+.lang-switch.active {
+    background: rgba(59, 130, 246, 0.2);
+    color: white;
+}  
+
+
+
+        /*end of language switcher */
+
+
+
+
+
+
+
+
+    </style>
+</head>
+<body class="bg-pattern min-h-screen">
+    <!-- Header -->
+    <header class="fixed w-full top-0 z-50 bg-opacity-90 bg-gray-900 backdrop-filter backdrop-blur-lg border-b border-gray-800">
+        <nav class="container mx-auto px-4 sm:px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-8 sm:space-x-12">
+                    <a href="index.html" class="text-xl sm:text-2xl font-bold logo-text tracking-tight">
+                        Immediate Apex Edge
+                    </a>
+                    
+                    <div class="hidden md:flex items-center space-x-8">
+                        <a href="index.html" class="nav-link text-gray-300 hover:text-white font-medium">Home</a>
+                        <a href="about.html" class="nav-link text-gray-300 hover:text-white font-medium">About</a>
+                        <a href="market.html" class="nav-link text-gray-300 hover:text-white font-medium">Market Price</a>
+                        <a href="contact.html" class="nav-link text-gray-300 hover:text-white font-medium">Contact</a>
+                    </div>
+                </div>
+
+                <!--Lang-->
+                <div class="hidden md:flex items-center ml-4">
+                    <button class="lang-switch" onclick="toggleLanguage()">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+                        </svg>
+                        <span id="langBtnText">EN</span>
+                    </button>
+                </div>
+                
+                <button class="md:hidden p-2 hover:bg-gray-800 rounded-lg transition-all duration-300" id="menuBtn">
+                    <svg class="h-6 w-6 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div class="mobile-menu hidden md:hidden mt-4 rounded-lg p-4 animate__animated animate__fadeIn" id="mobileMenu">
+                <div class="flex flex-col space-y-2">
+                    <a href="index.html" class="text-gray-300 hover:text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-all duration-200">Home</a>
+                    <a href="about.html" class="text-white px-4 py-2 rounded-lg bg-gray-800 transition-all duration-200">About</a>
+                    <a href="market.html" class="text-gray-300 hover:text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-all duration-200">Market Price</a>
+                    <a href="contact.html" class="text-gray-300 hover:text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-all duration-200">Contact</a>
+                </div>
+                 <!--Lang-->
+    <div class="px-4 py-2">
+        <button class="lang-switch w-full justify-center" onclick="toggleLanguage()">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+            </svg>
+            <span id="mobileLangBtnText">EN</span>
+        </button>
+    </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pt-24 pb-16">
+        <div class="container mx-auto px-4 sm:px-6">
+            <!-- Hero Section -->
+            <div class="text-center mb-16">
+                <h1 class="text-3xl sm:text-4xl font-bold text-white mb-4">About Immediate Apex Edge</h1>
+                <p class="text-gray-300 max-w-3xl mx-auto">Leading the revolution in automated trading with cutting-edge AI technology and unparalleled market analysis.</p>
+            </div>
+
+            <!-- Mission & Vision -->
+            <div class="grid md:grid-cols-2 gap-8 mb-16">
+                <div class="about-card">
+                    <h2 class="text-2xl font-bold text-white mb-4">Our Mission</h2>
+                    <p class="text-gray-300">To democratize trading by providing advanced AI-powered tools that level the playing field between institutional and retail traders.</p>
+                </div>
+
+                <div class="about-card">
+                    <h2 class="text-2xl font-bold text-white mb-4">Our Vision</h2>
+                    <p class="text-gray-300">To become the world's leading platform for automated trading, enabling traders of all levels to achieve their financial goals.</p>
+                </div>
+            </div>
+
+            <!-- Key Features -->
+            <div class="mb-16">
+                <h2 class="text-2xl font-bold text-white text-center mb-8">Why Choose Us</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-2">Advanced Analytics</h3>
+                        <p class="text-gray-300">Real-time market analysis powered by sophisticated AI algorithms.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-2">24/7 Trading</h3>
+                        <p class="text-gray-300">Automated trading systems that work around the clock to capture opportunities.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-2">Secure Platform</h3>
+                        <p class="text-gray-300">Bank-grade security measures to protect your assets and data.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="grid md:grid-cols-4 gap-6 mb-16">
+                <div class="stats-card">
+                    <div class="stat-number">98%</div>
+                    <div class="text-gray-300">Accuracy Rate</div>
+                </div>
+                <div class="stats-card">
+                    <div class="stat-number">24/7</div>
+                    <div class="text-gray-300">Trading Support</div>
+                </div>
+                <div class="stats-card">
+                    <div class="stat-number">150K+</div>
+                    <div class="text-gray-300">Active Users</div>
+                </div>
+                <div class="stats-card">
+                    <div class="stat-number">50+</div>
+                    <div class="text-gray-300">Countries</div>
+                </div>
+            </div>
+
+            <!-- Timeline Section -->
+            <div class="mb-16">
+                <h2 class="text-2xl font-bold text-white text-center mb-8">Our Journey</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h3 class="text-xl font-semibold text-white mb-2">2020</h3>
+                        <p class="text-gray-300">Founded with a vision to revolutionize automated trading</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3 class="text-xl font-semibold text-white mb-2">2021</h3>
+                        <p class="text-gray-300">Launched our first AI-powered trading algorithm</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3 class="text-xl font-semibold text-white mb-2">2022</h3>
+                        <p class="text-gray-300">Expanded to 30+ countries and reached 50,000 users</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3 class="text-xl font-semibold text-white mb-2">2023</h3>
+                        <p class="text-gray-300">Introduced advanced market analysis features</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3 class="text-xl font-semibold text-white mb-2">2024</h3>
+                        <p class="text-gray-300">Achieved industry-leading accuracy rates and user satisfaction</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="about-card text-center">
+                <h2 class="text-2xl font-bold text-white mb-4">Ready to Start Trading?</h2>
+                <p class="text-gray-300 mb-6">Join thousands of successful traders who have already transformed their trading with Immediate Apex Edge.</p>
+                <button class="cta-button">
+                    <span>Get Started Now</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-section py-16 relative z-10">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Company Description -->
+                <div class="space-y-6">
+                    <h3 class="text-2xl font-bold text-white">Immediate Apex Edge</h3>
+                    <p class="text-gray-300">Take advantage of revolutionary trading technology combining the power of AI analysis and strategic precision to maximize your opportunities in the financial markets.</p>
+                    <button class="cta-button text-lg font-semibold">
+                        <span>Start Trading Now</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="space-y-6">
+                    <h3 class="text-xl font-bold text-white">Quick Links</h3>
+                    <ul class="space-y-4">
+                        <li><a href="#" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Terms and Conditions</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="space-y-6">
+                    <h3 class="text-xl font-bold text-white">Contacts</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <svg class="h-6 w-6 text-blue-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            <span class="text-gray-300">10 Avenue Montaigne, 75008 Paris</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="h-6 w-6 text-blue-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                            <a href="mailto:contact@immediateapexedge.com" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">contact@immediateapexedge.com</a>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="h-6 w-6 text-blue-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                            </svg>
+                            <a href="https://immediateapexedge.com" target="_blank" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">immediateapexedge.com</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2025 Immediate Apex Edge. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!--Scripts-->
+    <script src="aboutfrench.js"></script>
+    <script src="translation.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile menu functionality
+            const menuBtn = document.getElementById('menuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('animate__fadeIn');
+                } else {
+                    mobileMenu.classList.remove('animate__fadeIn');
+                }
+            });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!menuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+
+            // Animate stats on scroll
+            const statsNumbers = document.querySelectorAll('.stat-number');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            statsNumbers.forEach(number => {
+                number.style.opacity = '0';
+                number.style.transform = 'translateY(20px)';
+                number.style.transition = 'all 0.6s ease';
+                observer.observe(number);
+            });
+
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 768) {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+
+
+
+        
+
+        window.toggleLanguage = function() {
+    const currentLang = document.getElementById('langBtnText').textContent.toLowerCase();
+    const newLang = currentLang === 'en' ? 'fr' : 'en';
+    
+    // Update language button text
+    document.getElementById('langBtnText').textContent = newLang.toUpperCase();
+    document.getElementById('mobileLangBtnText').textContent = newLang.toUpperCase();
+    
+    // Update content
+    updateContent(newLang);
+    
+    // Add animation class
+    const buttons = document.querySelectorAll('.lang-switch');
+    buttons.forEach(button => {
+        button.classList.add('active');
+        setTimeout(() => button.classList.remove('active'), 300);
+    });
+
+    // Store language preference
+    localStorage.setItem('preferredLanguage', newLang);
+};
+    </script>
+</body>
+</html>
