@@ -1,30 +1,71 @@
-// contactfrench.js
+// Language translations object
 const translations = {
+    fr: {
+        nav: {
+            home: "Accueil",
+            about: "À propos",
+            market: "Prix du marché",
+            contact: "Contact"
+        },
+        main: {
+            title: "Contactez-nous",
+            email: {
+                title: "E-mail",
+                value: "contact@immediateapexedge.com"
+            },
+            address: {
+                title: "Adresse",
+                value: "Immediate Apex Edge\n10 Avenue Montaigne\nParis 75008"
+            },
+            form: {
+                title: "Envoyez-nous un message",
+                name: "Nom complet",
+                namePlaceholder: "Jean Dupont",
+                email: "Adresse e-mail",
+                emailPlaceholder: "jean@exemple.com",
+                subject: "Sujet",
+                subjectPlaceholder: "Comment pouvons-nous vous aider ?",
+                message: "Message",
+                messagePlaceholder: "Votre message ici...",
+                sendButton: "Envoyer le message",
+                sending: "Envoi en cours...",
+                sent: "Message envoyé !"
+            }
+        },
+        footer: {
+            company: "Immediate Apex Edge",
+            description: "Profitez d'une technologie de trading révolutionnaire combinant la puissance de l'analyse IA et la précision stratégique pour maximiser vos opportunités sur les marchés financiers.",
+            startTrading: "Commencer à trader",
+            quickLinks: "Liens rapides",
+            privacyPolicy: "Politique de confidentialité",
+            termsConditions: "Conditions générales",
+            contacts: "Contacts",
+            address: "10 Avenue Montaigne, 75008 Paris",
+            website: "immediateapexedge.com",
+            copyright: "© 2025 Immediate Apex Edge. Tous droits réservés."
+        }
+    },
     en: {
-        // Navigation
-        navigation: {
+        nav: {
             home: "Home",
             about: "About",
             market: "Market Price",
             contact: "Contact"
         },
-        // Main content
         main: {
             title: "Contact Us",
             email: {
                 title: "E-mail",
-                address: "contact@immediateapexedge.com"
+                value: "contact@immediateapexedge.com"
             },
             address: {
                 title: "Address",
-                line1: "Immediate Apex Edge",
-                line2: "10 Avenue Montaigne",
-                line3: "Paris"
+                value: "Immediate Apex Edge\n10 Avenue Montaigne\nParis 75008"
             },
             form: {
                 title: "Send us a message",
-                fullName: "Full Name",
-                fullNamePlaceholder: "John Doe",
+                name: "Full Name",
+                namePlaceholder: "John Doe",
                 email: "Email Address",
                 emailPlaceholder: "john@example.com",
                 subject: "Subject",
@@ -36,190 +77,184 @@ const translations = {
                 sent: "Message Sent!"
             }
         },
-        // Footer
         footer: {
+            company: "Immediate Apex Edge",
             description: "Take advantage of revolutionary trading technology combining the power of AI analysis and strategic precision to maximize your opportunities in the financial markets.",
             startTrading: "Start Trading Now",
             quickLinks: "Quick Links",
             privacyPolicy: "Privacy Policy",
             termsConditions: "Terms and Conditions",
             contacts: "Contacts",
+            address: "10 Avenue Montaigne, 75008 Paris",
+            website: "immediateapexedge.com",
             copyright: "© 2025 Immediate Apex Edge. All Rights Reserved."
-        }
-    },
-    fr: {
-        // Navigation
-        navigation: {
-            home: "Accueil",
-            about: "À propos",
-            market: "Prix du Marché",
-            contact: "Contact"
-        },
-        // Main content
-        main: {
-            title: "Contactez-nous",
-            email: {
-                title: "E-mail",
-                address: "contact@immediateapexedge.com"
-            },
-            address: {
-                title: "Adresse",
-                line1: "Immediate Apex Edge",
-                line2: "10 Avenue Montaigne",
-                line3: "Paris"
-            },
-            form: {
-                title: "Envoyez-nous un message",
-                fullName: "Nom Complet",
-                fullNamePlaceholder: "Jean Dupont",
-                email: "Adresse E-mail",
-                emailPlaceholder: "jean@exemple.com",
-                subject: "Sujet",
-                subjectPlaceholder: "Comment pouvons-nous vous aider ?",
-                message: "Message",
-                messagePlaceholder: "Votre message ici...",
-                sendButton: "Envoyer le Message",
-                sending: "Envoi en cours...",
-                sent: "Message Envoyé !"
-            }
-        },
-        // Footer
-        footer: {
-            description: "Profitez d'une technologie de trading révolutionnaire combinant la puissance de l'analyse IA et la précision stratégique pour maximiser vos opportunités sur les marchés financiers.",
-            startTrading: "Commencer à Trader",
-            quickLinks: "Liens Rapides",
-            privacyPolicy: "Politique de Confidentialité",
-            termsConditions: "Conditions Générales",
-            contacts: "Contacts",
-            copyright: "© 2025 Immediate Apex Edge. Tous droits réservés."
         }
     }
 };
 
-function updateContent(lang) {
-    // Update main title
-    document.querySelector('main h1').textContent = translations[lang].main.title;
-
-    // Update navigation links (desktop)
-    const desktopNavLinks = document.querySelectorAll('.hidden.md\\:flex .nav-link');
-    desktopNavLinks.forEach(link => {
-        const href = link.getAttribute('href');
-        if (href.includes('index')) link.textContent = translations[lang].navigation.home;
-        else if (href.includes('about')) link.textContent = translations[lang].navigation.about;
-        else if (href.includes('market')) link.textContent = translations[lang].navigation.market;
-        else if (href.includes('contact')) link.textContent = translations[lang].navigation.contact;
-    });
-
-    // Update navigation links (mobile)
-    const mobileNavLinks = document.querySelectorAll('#mobileMenu a');
-    mobileNavLinks.forEach(link => {
-        const href = link.getAttribute('href');
-        if (href.includes('index')) link.textContent = translations[lang].navigation.home;
-        else if (href.includes('about')) link.textContent = translations[lang].navigation.about;
-        else if (href.includes('market')) link.textContent = translations[lang].navigation.market;
-        else if (href.includes('contact')) link.textContent = translations[lang].navigation.contact;
-    });
-
-    // Update Email and Address cards
-    const contactCards = document.querySelectorAll('.contact-card');
-    contactCards.forEach(card => {
-        const title = card.querySelector('h3');
-        if (title.textContent.includes('E-mail')) {
-            title.textContent = translations[lang].main.email.title;
-        } else if (title.textContent.includes('Address')) {
-            title.textContent = translations[lang].main.address.title;
-            const addressLines = card.querySelectorAll('p');
-            addressLines.forEach(line => {
-                if (line.textContent.includes('Immediate')) {
-                    line.innerHTML = `${translations[lang].main.address.line1}<br>${translations[lang].main.address.line2}<br>${translations[lang].main.address.line3} <span class="text-blue-400">75008</span>`;
-                }
-            });
-        }
-    });
-
-    // Update Contact Form
-    const formSection = document.querySelector('.contact-form-card');
-    formSection.querySelector('h3').textContent = translations[lang].main.form.title;
-    
-    // Update form labels
-    const labels = formSection.querySelectorAll('label');
-    labels[0].textContent = translations[lang].main.form.fullName;
-    labels[1].textContent = translations[lang].main.form.email;
-    labels[2].textContent = translations[lang].main.form.subject;
-    labels[3].textContent = translations[lang].main.form.message;
-
-    // Update form placeholders
-    document.getElementById('name').placeholder = translations[lang].main.form.fullNamePlaceholder;
-    document.getElementById('email').placeholder = translations[lang].main.form.emailPlaceholder;
-    document.getElementById('subject').placeholder = translations[lang].main.form.subjectPlaceholder;
-    document.getElementById('message').placeholder = translations[lang].main.form.messagePlaceholder;
-
-    // Update submit button
-    const submitButton = document.querySelector('.submit-button span');
-    if (!submitButton.parentElement.disabled) {
-        submitButton.textContent = translations[lang].main.form.sendButton;
-    }
-
-    // Update Footer content
-const footerCols = document.querySelectorAll('.footer-col');
-footerCols.forEach(col => {
-    const description = col.querySelector('p');
-    const footerTitle = col.querySelector('h3');
-    const links = col.querySelectorAll('a');
-    const startTradingBtn = col.querySelector('.cta-button span');
-
-    // Update company description and start trading button
-    if (description && description.textContent.includes('trading') || description.textContent.includes('trading technology')) {
-        description.textContent = translations[lang].footer.description;
-        if (startTradingBtn) {
-            startTradingBtn.textContent = translations[lang].footer.startTrading;
-        }
-    }
-
-    // Update Quick Links section
-    if (footerTitle && (footerTitle.textContent.includes('Quick') || footerTitle.textContent.includes('Liens'))) {
-        footerTitle.textContent = translations[lang].footer.quickLinks;
-        // Update the links under Quick Links
-        if (links && links.length >= 2) {
-            links[0].textContent = translations[lang].footer.privacyPolicy;
-            links[1].textContent = translations[lang].footer.termsConditions;
-        }
-    }
-
-    // Update Contacts section
-    if (footerTitle && (footerTitle.textContent.includes('Contacts') || footerTitle.textContent.includes('Contact'))) {
-        footerTitle.textContent = translations[lang].footer.contacts;
-    }
-});
-
-// Update copyright
-const copyrightText = document.querySelector('.border-t p');
-if (copyrightText) {
-    copyrightText.textContent = translations[lang].footer.copyright;
-}
-}
-
-// Initialize with English
+// Initialize the page in French when the DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    updateContent('en');
+    // Set initial language to French
+    setLanguage('fr');
+    
+    // Update language buttons to show current language
+    document.getElementById('langBtnText').textContent = 'FR';
+    document.getElementById('mobileLangBtnText').textContent = 'FR';
+    
+    // Set up mobile menu functionality
+    setupMobileMenu();
+    
+    // Set up form submission handling
+    setupFormHandling();
 });
 
-// Function to toggle language
+// Function to toggle between languages
 function toggleLanguage() {
     const currentLang = document.getElementById('langBtnText').textContent.toLowerCase();
-    const newLang = currentLang === 'en' ? 'fr' : 'en';
+    const newLang = currentLang === 'fr' ? 'en' : 'fr';
+    setLanguage(newLang);
     
-    // Update language button text
+    // Update language buttons
     document.getElementById('langBtnText').textContent = newLang.toUpperCase();
     document.getElementById('mobileLangBtnText').textContent = newLang.toUpperCase();
+}
+
+// Function to set the page language
+function setLanguage(lang) {
+    const t = translations[lang];
     
-    // Update content
-    updateContent(newLang);
+    // Update document title
+    document.title = `${t.main.title} - Immediate Apex Edge`;
     
-    // Add animation class
-    const buttons = document.querySelectorAll('.lang-switch');
-    buttons.forEach(button => {
-        button.classList.add('active');
-        setTimeout(() => button.classList.remove('active'), 300);
+    // Update navigation
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks[0].textContent = t.nav.home;
+    navLinks[1].textContent = t.nav.about;
+    navLinks[2].textContent = t.nav.market;
+    navLinks[3].textContent = t.nav.contact;
+    
+    // Update mobile navigation
+    const mobileLinks = document.getElementById('mobileMenu').getElementsByTagName('a');
+    mobileLinks[0].textContent = t.nav.home;
+    mobileLinks[1].textContent = t.nav.about;
+    mobileLinks[2].textContent = t.nav.market;
+    mobileLinks[3].textContent = t.nav.contact;
+    
+    // Update main content
+    document.querySelector('h1').textContent = t.main.title;
+    
+    // Update email card
+    document.querySelector('.contact-card:nth-child(1) h3').textContent = t.main.email.title;
+    
+    // Update address card
+    document.querySelector('.contact-card:nth-child(2) h3').textContent = t.main.address.title;
+    document.querySelector('.contact-card:nth-child(2) p').innerHTML = t.main.address.value.replace(/\n/g, '<br>');
+    
+    // Update contact form
+    const form = document.getElementById('contactForm');
+    form.parentElement.querySelector('h3').textContent = t.main.form.title;
+    
+    // Update form labels and placeholders
+    document.querySelector('label[for="name"]').textContent = t.main.form.name;
+    document.getElementById('name').placeholder = t.main.form.namePlaceholder;
+    
+    document.querySelector('label[for="email"]').textContent = t.main.form.email;
+    document.getElementById('email').placeholder = t.main.form.emailPlaceholder;
+    
+    document.querySelector('label[for="subject"]').textContent = t.main.form.subject;
+    document.getElementById('subject').placeholder = t.main.form.subjectPlaceholder;
+    
+    document.querySelector('label[for="message"]').textContent = t.main.form.message;
+    document.getElementById('message').placeholder = t.main.form.messagePlaceholder;
+    
+    // Update submit button
+    const submitButton = form.querySelector('button[type="submit"] span');
+    submitButton.textContent = t.main.form.sendButton;
+    
+    // Update footer
+    const footerCols = document.querySelectorAll('.footer-col');
+    footerCols[0].querySelector('h3').textContent = t.footer.company;
+    footerCols[0].querySelector('p').textContent = t.footer.description;
+    footerCols[0].querySelector('.cta-button span').textContent = t.footer.startTrading;
+    
+    footerCols[1].querySelector('h3').textContent = t.footer.quickLinks;
+    footerCols[1].querySelectorAll('a')[0].textContent = t.footer.privacyPolicy;
+    footerCols[1].querySelectorAll('a')[1].textContent = t.footer.termsConditions;
+    
+    footerCols[2].querySelector('h3').textContent = t.footer.contacts;
+    
+    // Update copyright
+    document.querySelector('.footer-section .text-gray-400').textContent = t.footer.copyright;
+}
+
+// Function to set up mobile menu functionality
+function setupMobileMenu() {
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    menuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('animate__fadeIn');
+        } else {
+            mobileMenu.classList.remove('animate__fadeIn');
+        }
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!menuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+            mobileMenu.classList.add('hidden');
+        }
+    });
+}
+
+// Function to set up form handling
+function setupFormHandling() {
+    const contactForm = document.getElementById('contactForm');
+    const submitButton = contactForm.querySelector('button[type="submit"]');
+
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const currentLang = document.getElementById('langBtnText').textContent.toLowerCase();
+        const t = translations[currentLang];
+        
+        submitButton.disabled = true;
+        submitButton.innerHTML = `
+            <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <span>${t.main.form.sending}</span>
+        `;
+
+        const formData = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            subject: document.getElementById('subject').value,
+            message: document.getElementById('message').value
+        };
+
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        console.log('Form submitted:', formData);
+        contactForm.reset();
+        
+        submitButton.innerHTML = `
+            <svg class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>${t.main.form.sent}</span>
+        `;
+
+        setTimeout(() => {
+            submitButton.disabled = false;
+            submitButton.innerHTML = `
+                <span>${t.main.form.sendButton}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+            `;
+        }, 2000);
     });
 }
