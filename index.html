@@ -706,6 +706,61 @@
 
 
 
+
+.timer-labels {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    .timer-labels-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.4rem;
+        text-align: center;
+        margin-bottom: 0.4rem;
+        margin-top: 0.4rem;
+    }
+
+    .timer-label {
+        color: #60A5FA;
+        font-size: 1.25rem;
+        font-weight: 500;
+    }
+
+    .timer-message {
+        text-align: center;
+        color: #FCD34D;
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 2rem;
+    }
+
+    .timer-container .timer-digit{
+        margin-bottom: 0.25rem !important;
+    }
+
+    .timer-container .text-sm {
+        margin-top: -0.25rem;
+    }
+
+    .timer-container{
+        padding: 1.5rem 2rem;
+    }
+
+    @media (max-width: 640px) {
+        .timer-label {
+            font-size: 1rem;
+        }
+        
+        .timer-message {
+            font-size: 1.25rem;
+        }
+    }
+
+
+
       
 
 
@@ -791,20 +846,32 @@
                         <div class="grid grid-cols-4 gap-4 md:gap-8">
                             <div class="text-center">
                                 <div class="timer-digit text-3xl md:text-5xl font-bold text-blue-400 countdown-days mb-2">00</div>
-                                <div class="text-sm uppercase tracking-wider text-gray-400">Days</div>
+                                <div class="text-sm uppercase tracking-wider text-gray-400 days-label">Days</div>
                             </div>
                             <div class="text-center">
                                 <div class="timer-digit text-3xl md:text-5xl font-bold text-blue-400 countdown-hours mb-2">00</div>
-                                <div class="text-sm uppercase tracking-wider text-gray-400">Hours</div>
+                                <div class="text-sm uppercase tracking-wider text-gray-400 hours-label">Hours</div>
                             </div>
                             <div class="text-center">
                                 <div class="timer-digit text-3xl md:text-5xl font-bold text-blue-400 countdown-minutes mb-2">00</div>
-                                <div class="text-sm uppercase tracking-wider text-gray-400">Minutes</div>
+                                <div class="text-sm uppercase tracking-wider text-gray-400 minutes-label">Minutes</div>
                             </div>
                             <div class="text-center">
                                 <div class="timer-digit text-3xl md:text-5xl font-bold text-blue-400 countdown-seconds mb-2">00</div>
-                                <div class="text-sm uppercase tracking-wider text-gray-400">Seconds</div>
+                                <div class="text-sm uppercase tracking-wider text-gray-400 seconds-label">Seconds</div>
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="timer-labels">
+                        <div class="timer-labels-grid">
+                            <div class="timer-label">Jours</div>
+                            <div class="timer-label">Heures</div>
+                            <div class="timer-label">Minutes</div>
+                            <div class="timer-label">Secondes</div>
+                        </div>
+                        <div class="timer-message">
+                            Dépêchez-vous avant la fin du compte à rebours!
                         </div>
                     </div>
                     
@@ -1446,68 +1513,108 @@
     });
 
     // Countdown Timer 
-    class CountdownTimer {
-        constructor(endDate) {
-            this.endDate = endDate;
-            this.elements = {
-                days: document.querySelector('.countdown-days'),
-                hours: document.querySelector('.countdown-hours'),
-                minutes: document.querySelector('.countdown-minutes'),
-                seconds: document.querySelector('.countdown-seconds')
-            };
-            this.previousValues = {
-                days: null,
-                hours: null,
-                minutes: null,
-                seconds: null
-            };
-        }
-
-        calculateTimeLeft() {
-            const now = new Date();
-            const diff = this.endDate - now;
-
-            if (diff <= 0) {
-                return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+   
+    // Countdown Timer
+class CountdownTimer {
+    constructor(endDate) {
+        this.endDate = endDate;
+        this.elements = {
+            days: {
+                value: document.querySelector('.countdown-days'),
+                label: document.querySelector('.days-label')
+            },
+            hours: {
+                value: document.querySelector('.countdown-hours'),
+                label: document.querySelector('.hours-label')
+            },
+            minutes: {
+                value: document.querySelector('.countdown-minutes'),
+                label: document.querySelector('.minutes-label')
+            },
+            seconds: {
+                value: document.querySelector('.countdown-seconds'),
+                label: document.querySelector('.seconds-label')
             }
+        };
+        this.previousValues = {
+            days: null,
+            hours: null,
+            minutes: null,
+            seconds: null
+        };
+        
+        // Set initial labels
+        this.updateLabels();
+    }
 
-            return {
-                days: Math.floor(diff / (1000 * 60 * 60 * 24)),
-                hours: Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-                minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
-                seconds: Math.floor((diff % (1000 * 60)) / 1000)
-            };
+    updateLabels() {
+        const labels = {
+            days: 'Days',
+            hours: 'Hours',
+            minutes: 'Minutes',
+            seconds: 'Seconds'
+        };
+        
+        Object.entries(this.elements).forEach(([key, element]) => {
+            if (element.label) {
+                element.label.textContent = labels[key];
+            }
+        });
+    }
+
+    calculateTimeLeft() {
+        const now = new Date();
+        const diff = this.endDate - now;
+
+        if (diff <= 0) {
+            return { days: 0, hours: 0, minutes: 0, seconds: 0 };
         }
 
-        updateDisplay(timeLeft) {
-            Object.entries(timeLeft).forEach(([key, value]) => {
-                const element = this.elements[key];
-                if (element) {
-                    const newValue = String(value).padStart(2, '0');
-                    if (this.previousValues[key] !== newValue) {
-                        element.classList.remove('flip');
-                        void element.offsetWidth;
-                        element.textContent = newValue;
-                        element.classList.add('flip');
-                        this.previousValues[key] = newValue;
-                    }
+        return {
+            days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+            hours: Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+            minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
+            seconds: Math.floor((diff % (1000 * 60)) / 1000)
+        };
+    }
+
+    updateDisplay(timeLeft) {
+        Object.entries(timeLeft).forEach(([key, value]) => {
+            const element = this.elements[key].value;
+            if (element) {
+                const newValue = String(value).padStart(2, '0');
+                if (this.previousValues[key] !== newValue) {
+                    element.classList.remove('flip');
+                    void element.offsetWidth;
+                    element.textContent = newValue;
+                    element.classList.add('flip');
+                    this.previousValues[key] = newValue;
                 }
-            });
-        }
-
-        start() {
-            this.update();
-            this.interval = setInterval(() => this.update(), 1000);
-        }
-
-        update() {
-            const timeLeft = this.calculateTimeLeft();
-            this.updateDisplay(timeLeft);
-            if (Object.values(timeLeft).every(v => v === 0)) {
-                clearInterval(this.interval);
             }
+        });
+    }
+
+    start() {
+        this.update();
+        this.interval = setInterval(() => this.update(), 1000);
+    }
+
+    update() {
+        const timeLeft = this.calculateTimeLeft();
+        this.updateDisplay(timeLeft);
+        if (Object.values(timeLeft).every(v => v === 0)) {
+            clearInterval(this.interval);
         }
     }
+}
+
+// Initialize countdown
+document.addEventListener('DOMContentLoaded', () => {
+    const endDate = new Date();
+    endDate.setDate(endDate.getDate() + 7);
+    const countdown = new CountdownTimer(endDate);
+    countdown.start();
+});
 
     // Initialize countdown
     const endDate = new Date();
