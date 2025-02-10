@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" translate="no"> 
+<html lang="fr" translate="no">
 <head>
 }
     <meta charset="UTF-8">
@@ -1578,9 +1578,23 @@
 
 
 // Initialize language state
-let currentLang = 'en';
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    // Set French as default language if no preference is stored
+    const storedLang = localStorage.getItem('preferredLanguage') || 'fr';
+    
+    // Update language button text
+    document.getElementById('langBtnText').textContent = storedLang.toUpperCase();
+    document.getElementById('mobileLangBtnText').textContent = storedLang.toUpperCase();
+    
+    // Set the HTML lang attribute
+    document.documentElement.lang = storedLang;
+    
+    // Apply initial translations
+    updateContent(storedLang);
+});
 
-// Function to toggle language
+// Modified toggle language function
 function toggleLanguage() {
     const currentLang = document.getElementById('langBtnText').textContent.toLowerCase();
     const newLang = currentLang === 'en' ? 'fr' : 'en';
@@ -1588,6 +1602,9 @@ function toggleLanguage() {
     // Update language button text
     document.getElementById('langBtnText').textContent = newLang.toUpperCase();
     document.getElementById('mobileLangBtnText').textContent = newLang.toUpperCase();
+    
+    // Update HTML lang attribute
+    document.documentElement.lang = newLang;
     
     // Update content
     updateContent(newLang);
@@ -1602,19 +1619,6 @@ function toggleLanguage() {
     // Store language preference
     localStorage.setItem('preferredLanguage', newLang);
 }
-
-// Check for stored language preference on page load
-document.addEventListener('DOMContentLoaded', () => {
-    const storedLang = localStorage.getItem('preferredLanguage');
-    if (storedLang) {
-        document.getElementById('langBtnText').textContent = storedLang.toUpperCase();
-        document.getElementById('mobileLangBtnText').textContent = storedLang.toUpperCase();
-        updateContent(storedLang);
-    } else {
-        updateContent('en');
-    }
-});
-
 
         </script>
     </body>
