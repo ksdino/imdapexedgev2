@@ -1,4 +1,4 @@
-// indexfrench.js
+
 const translations = {
     en: {
         // Navigation
@@ -269,13 +269,13 @@ const translations = {
                 part2: "L'Avenir du Trading IA en 2025"
             },
             subtitle: "Prêt à atteindre de nouveaux sommets ? Avec Immediate Apex Edge, profitez d'une technologie de trading révolutionnaire qui combine la puissance de l'analyse IA avec la précision stratégique pour maximiser vos opportunités sur les marchés financiers.",
-            timer: {
+            countdown: {
                 days: "Jours",
                 hours: "Heures",
                 minutes: "Minutes",
                 seconds: "Secondes"
             },
-            countdown: {
+            timer: {
                 hurry: "Dépêchez-vous ! Inscrivez-vous avant la fin du compte à rebours",
                 bonus: "Obtenez un incroyable bonus de 50% sur votre dépôt",
                 offer: "Une offre unique à ne pas manquer !"
@@ -746,3 +746,127 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('mobileLangBtnText').textContent = storedLang.toUpperCase();
     updateContent(storedLang);
 });
+document.addEventListener('DOMContentLoaded', () => {
+    // Mobile Menu functionality 
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    let isMenuOpen = false;
+
+    function toggleMenu() {
+        isMenuOpen = !isMenuOpen;
+        mobileMenu.classList.toggle('hidden');
+        if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('animate__fadeIn');
+        } else {
+            mobileMenu.classList.remove('animate__fadeIn');
+        }
+    }
+
+    menuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleMenu();
+    });
+
+    document.addEventListener('click', (e) => {
+        if (isMenuOpen && !mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+            toggleMenu();
+        }
+    });
+
+    // Updated Countdown Timer
+    class CountdownTimer {
+        constructor(endDate) {
+            this.endDate = endDate;
+            // Update selectors to match HTML structure
+            this.elements = {
+                days: document.querySelector('.timer-container .countdown-days'),
+                hours: document.querySelector('.timer-container .countdown-hours'),
+                minutes: document.querySelector('.timer-container .countdown-minutes'),
+                seconds: document.querySelector('.timer-container .countdown-seconds')
+            };
+            this.previousValues = {
+                days: null,
+                hours: null,
+                minutes: null,
+                seconds: null
+            };
+            // Get label elements
+            this.labels = {
+                days: document.querySelector('.timer-container .text-gray-400:nth-child(2)'),
+                hours: document.querySelector('.timer-container .text-gray-400:nth-child(2)'),
+                minutes: document.querySelector('.timer-container .text-gray-400:nth-child(2)'),
+                seconds: document.querySelector('.timer-container .text-gray-400:nth-child(2)')
+            };
+        }
+
+        calculateTimeLeft() {
+            const now = new Date();
+            const diff = this.endDate - now;
+
+            if (diff <= 0) {
+                return { days: "00", hours: "00", minutes: "00", seconds: "00" };
+            }
+
+            return {
+                days: String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0'),
+                hours: String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0'),
+                minutes: String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0'),
+                seconds: String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0')
+            };
+        }
+
+        updateDisplay(timeLeft) {
+            Object.entries(timeLeft).forEach(([key, value]) => {
+                const element = this.elements[key];
+                if (element && this.previousValues[key] !== value) {
+                    // Remove existing flip class
+                    element.classList.remove('flip');
+                    // Force reflow
+                    void element.offsetWidth;
+                    // Update the value
+                    element.textContent = value;
+                    // Add flip class back
+                    element.classList.add('flip');
+                    // Update previous value
+                    this.previousValues[key] = value;
+                }
+            });
+        }
+
+        updateLabels(lang) {
+            const labels = {
+                en: { days: 'Days', hours: 'Hours', minutes: 'Minutes', seconds: 'Seconds' },
+                fr: { days: 'Jours', hours: 'Heures', minutes: 'Minutes', seconds: 'Secondes' }
+            };
+            Object.entries(this.labels).forEach(([key, element]) => {
+                if (element) {
+                    element.textContent = labels[lang][key];
+                }
+            });
+        }
+
+        start() {
+            this.update();
+            this.interval = setInterval(() => this.update(), 1000);
+        }
+
+        update() {
+            const timeLeft = this.calculateTimeLeft();
+            this.updateDisplay(timeLeft);
+            if (Object.values(timeLeft).every(v => v === "00")) {
+                clearInterval(this.interval);
+            }
+        }
+    }
+
+    // Initialize countdown with 7 days 
+    const endDate = new Date();
+    endDate.setDate(endDate.getDate() + 7);
+    const countdown = new CountdownTimer(endDate);
+    countdown.start();
+
+   
+});
+
+
+
